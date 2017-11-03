@@ -17,12 +17,17 @@
 			$stmt = "SELECT * FROM `user`";
 			$result = $link->query($stmt);
 
-			while ($row = mysqli_fetch_row($result)){
-				echo "<tr>\n";
-				echo "<td>" . $row[1] . "</td>\n";
-				echo "<td>" . $row[2] . "</td>\n";
-				echo "</tr>";
+			if ($result->num_rows > 0){
+				while ($row = mysqli_fetch_row($result)){
+					echo "<tr>\n";
+					echo "<td>" . $row[1] . "</td>\n";
+					echo "<td>" . $row[3] . "</td>\n";
+					echo "</tr>";
+				}
 			}
+      else {
+          echo "<tr><td colspan='2'>No data found</td></tr>";
+      }
 		?>
 	</table>
 
