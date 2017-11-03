@@ -19,6 +19,7 @@
 	<th>E-Mail</th>
 <?php
 
+
 $link = mysqli_connect("localhost", "root", "", "boox");
 $stmt = "SELECT * FROM `user`";
 $result = $link->query($stmt);
