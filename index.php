@@ -1,19 +1,22 @@
+<?php
+  header('Content-Type: text/html; charset=utf-8');
+  require('config.php');
+?>
 <!doctype html>
-<html lang="en">
+<html lang="de  ">
   <head>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
   </head>
   <body>
-  	<h1>Users</h1>
+  <h1>Users</h1>
 	<table class="table-striped table">
 		<th>Name</th>
 		<th>E-Mail</th>
 		<?php
-			$link = mysqli_connect("localhost", "root", "", "i217_boox");
 			$stmt = "SELECT * FROM `user`";
 			$result = $link->query($stmt);
 
