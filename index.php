@@ -3,7 +3,7 @@
   require('config.php');
 ?>
 <!doctype html>
-<html lang="de  ">
+<html lang="de">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
