@@ -3,46 +3,50 @@ require('config.php');
 
 $status = "";
 
+
+
 if(isset($_POST['username'])){
+
   $name = $_POST['username'];
   $password = $_POST['password'];
   $email = $_POST['email'];
+  $ID = $_POST['ID'];
 
-  $stmt = "UPDATE `user` SET `username` = '" . $name . "', `password` = '" . $password . "', `email` = '" . $email ."' WHERE `user`.`id` = 6";
+  $stmt = "UPDATE `user` SET `username` = '" . $name . "', `password` = '" . $password . "', `email` = '" . $email . "' WHERE `user`.`id` = " . $ID . ";";
+
   $result = $link->query($stmt);
-  
-  $status = ">> User added";
+
+  $status = ">> User edited";
+
+  header('Location:index.php');
 
 }
 else {
+  if (empty($_GET['ID'])){
+    die("No ID set!");
+  }
+  else {
+    $ID = $_GET['ID'];
+  }
+
+  $stmt = "SELECT * FROM `user` WHERE `ID` = $ID";
+  $result = $link->query($stmt);
+
+  if ($result->num_rows > 0){
+    while ($row = mysqli_fetch_row($result)){
+        $username = $row[1];
+        $password = $row[2];
+        $email = $row[3];
+    }
+  }
+  else {
+    die("user not found");
+
+  }
+
   $status = ">> noch nichts gesendet";
+
 }
-
-
-if (isset($_GET['ID'])){
-	$userID = $_GET['ID']; 
-
-	$stmt = "SELECT * FROM `user` WHERE `id` = 6";
-	$result = $link->query($stmt);
-
-	$id = ""; 
-	$username = ""; 
-	$password = ""; 
-	$email = ""; 
-
-	if ($result->num_rows > 0){
-		while ($row = mysqli_fetch_row($result)){
-			$id = $row[0]; 
-			$username = $row[1]; 
-			$password = $row[2];
-			$email = $row[3];
-		}
-	}
-}
-else {
-	die("NO ID PROVIDED"); 
-}
-
 
 ?>
 <!doctype html>
@@ -63,22 +67,23 @@ else {
 <body>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-          <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>?ID=<?php $userID?>">
+          <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
             <h1>Edit User</h1>
-			<h2><?php echo $status ?></h2>
+			      <h2><?php echo $status ?></h2>
+            <input type="hidden" name="ID" value="<?php echo $ID ?>">
             <div class="form-group">
               <label for="username">User-Name:</label>
               <input type="text" class="form-control" id="username" name="username" value="<?php echo $username ?>" onclick="replaceUsername()">
             </div>
             <div class="form-group">
               <label for="password">Password:</label>
-              <input type="password" class="form-control" id="password" name="password" value="<?php echo $password ?>">
+              <input type="password" class="form-control" id="password" name="password" value = "<?php echo $password ?>">
             </div>
             <div class="form-group">
               <label for="email">E-Mail:</label>
               <input type="text" class="form-control" id="email" name="email" value="<?php echo $email ?>">
             </div>
-            <button type="submit" class="btn btn-default" name="btn-save">Add User</button>
+            <button type="submit" class="btn btn-default" name="btn-save">Edit User</button>
 
           </form>
 
