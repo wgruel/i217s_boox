@@ -1,4 +1,11 @@
 <?php
+// we also need some db connection...
+require_once('helpers/dbhelper.php');
+require_once('models/user.php');
+
+// in order to store variables across multiple websites, we start a session
+session_start();
+
 // default actions...
 $controller = "user";
 $action = "index";
@@ -10,12 +17,9 @@ if (isset($_GET['action'])){
     $action = trim($_GET['action']);
 }
 
-
 $filename = 'controllers/' . $controller . '.php';
 if (is_file($filename)) {
     require $filename;
-    // we also need some db connection...
-    require_once('helpers/dbhelper.php');
     if ($controller == "user"){
       $uController = new UserController();
       if ($action == "index"){
@@ -55,6 +59,20 @@ if (is_file($filename)) {
         else {
           die("No ID provided");
         }
+      }
+      else if ($action == "login"){
+        $uController->loginAction();
+      }
+      else if ($action == "loginCheck"){
+        if(isset($_POST['btn-save']) && isset($_POST['username'])){
+          $uController->loginCheck($_POST);
+        }
+        else {
+          die("Something went wrong while logging in...");
+        }
+      }
+      else if ($action == "logout"){
+        $uController->logoutAction();
       }
       else {
         die("no valid action provided");
