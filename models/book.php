@@ -7,10 +7,10 @@ class Book {
   private $author;
   private $ownerID;
   private $price;
-  protected $db;
+  protected static $db;
 
   public function __construct(){
-    $this->db = new DBHelper();
+    self::$db = new DBHelper();
   }
 
   public function setBook($id, $author, $title, $ownerID, $price){
@@ -26,14 +26,15 @@ class Book {
     $sql_query = "INSERT INTO `books`(`owner_id`, `author`, `title`, `price`) ";
     $sql_query .= "VALUES('" . $ownerID ."','" . $author . "','" . $title . "','" . $price . "')";
     // run query
-    $result = $this->db->query($sql_query);
+    $result = self::$db->query($sql_query);
+    $errorText = mysqli_error(self::$db->conn);
 
     // returns an array. First argument: true/false indicates if update was
     // successful. Second argument is a message to the user.
     $returnArray = array();
     $returnArray[0] = true;
     $returnArray[1] = "Inserted book " . $title;
-    $returnArray[2] = mysqli_insert_id($this->db->conn);
+    $returnArray[2] = mysqli_insert_id(self::$db->conn);
     if (!empty($errorText)){
       $returnArray[0] = false;
       $returnArray[1] = $errorText;
@@ -49,8 +50,8 @@ class Book {
       `price` = '" . $price . "'
       WHERE `id` = " . $id;
     // run query
-    print_r($sql_query);
-    $result = $this->db->query($sql_query);
+    $result = self::$db->query($sql_query);
+    $errorText = mysqli_error(self::$db->conn);
 
     // returns an array. First argument: true/false indicates if update was
     // successful. Second argument is a message to the user.
@@ -66,7 +67,9 @@ class Book {
 
   public function delete($id){
     $sql_query="DELETE FROM `books` WHERE `id` = " . $id;
-    $result = $this->db->query($sql_query);
+    $result = self::$db->query($sql_query);
+    $errorText = mysqli_error(self::$db->conn);
+
     $returnArray = array();
     $returnArray[0] = true;
     $returnArray[1] = "Deleted book " . $id;
@@ -77,24 +80,24 @@ class Book {
     return $returnArray;
   }
 
-  public function getBook($id){
+  public static function getBook($id){
     $book = new Book();
     $sql_query = "SELECT * FROM `books` WHERE `id` = " . $id;
-    $result = $this->db->query($sql_query);
+    $result = self::$db->query($sql_query);
     $row = mysqli_fetch_array($result);
     $book->setBook($row['id'], $row['author'], $row['title'], $row['owner_id'], $row['price']);
     return $book;
   }
 
 
-  public function getAllBooks(){
+  public static function getAllBooks(){
     $sql_query = "SELECT * FROM books";
-    $result_set = $this->db->query($sql_query);
+    $result_set = self::$db->query($sql_query);
     $books = array();
     if(mysqli_num_rows($result_set) > 0) {
       while($row = mysqli_fetch_array($result_set)) {
         $book = new Book();
-        $book->setBook($row['id'], $row['title'], $row['author'], $row['owner_id'], $row['price']);
+        $book->setBook($row['id'], $row['author'], $row['title'], $row['owner_id'], $row['price']);
         $books[] = $book;
       }
     }
@@ -122,7 +125,7 @@ class Book {
       return true;
     }
     else {
-      return false; 
+      return false;
     }
   }
 

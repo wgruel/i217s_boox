@@ -8,13 +8,15 @@
     data processing and views...
 
     Not yet done:
-    - Adapting to book
+    - Think about: does ownership change if admin edits a book? (makes it more transparent, but this is not ownership...)
     - Link owner and book (view)
     - More fields for Books (e.g. Description, Picture, ISBN)
     - Show name and information of book-owner
     - Testing / Bugfixing
     - Extensive documentation
     - Security (e.g. make sure underprivilleged users are not allowed to add, edit, update a user)
+
+    NOTE: If you want to know more, check comments in user-controller...
 
   */
 
@@ -33,14 +35,14 @@
       show users as list
     */
     public function indexAction() {
-      $books = $this->book->getAllBooks();
+      $books = Book::getAllBooks();
       require_once('views/bookList.php');
     }
     /**
       provide form do edit user...
     */
     public function editAction($id){
-      $book = $this->book->getBook($id);
+      $book = Book::getBook($id);
       $action = "save";
       $actionText = "Update Book";
       require_once('views/bookForm.php');

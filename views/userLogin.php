@@ -1,11 +1,6 @@
 <?php
-  if (!is_object($user)){
-    die("missing user-object");
-  }
-
-  $action = "login";
+  $action = "loginCheck";
   $actionText = "Login";
-
 ?>
 <html>
   <head>
@@ -25,14 +20,14 @@
               echo "</div>";
             }
           ?>
-          <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>?action=loginCheck">
+          <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>?action=<?php echo $action?>">
             <div class="form-group">
               <label for="usr">User-Name:</label>
-              <input type="text" class="form-control" id="username" name="username" value="<?php echo $user->getUsername(); ?>">
+              <input type="text" class="form-control" id="username" name="username" value="">
             </div>
             <div class="form-group">
               <label for="password">Password:</label>
-              <input type="text" class="form-control" id="password" name="password" value="<?php echo $user->getPassword(); ?>">
+              <input type="text" class="form-control" id="password" name="password" value="">
             </div>
             <a class="btn btn-default" href="index.php" role="button">Cancel</a>
             <button type="submit" class="btn btn-primary" name="btn-save"><?php echo $actionText ?></button>
