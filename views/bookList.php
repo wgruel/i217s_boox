@@ -1,12 +1,12 @@
 <html>
   <head>
-    <title>Index</title>
+    <title>Books</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 
     <script type="text/javascript">
       function deleteUser(id) {
-        if(confirm('Do you really want to delete this user?')) {
-            window.location.href='?controller=user&action=delete&id=' + id;
+        if(confirm('Do you really want to delete this book?')) {
+            window.location.href='?controller=book&action=delete&id=' + id;
         }
       }
     </script>
@@ -17,7 +17,7 @@
     <div class="container">
         <div class="col-md-12">
 
-        <h1>Users</h1>
+        <h1>Books</h1>
         <?php
           if (isset($message) && $message != ""){
             echo "<div class='alert alert-info'>";
@@ -28,33 +28,37 @@
         <table class="table table-striped">
           <tr>
             <th>ID</th>
-            <th>Username</th>
-            <th>E-Mail</th>
+            <th>Author</th>
+            <th>Title</th>
+            <th>OwnerID</th>
+            <th>Price</th>
             <th></th>
             <th></th>
           </tr>
           <?php
-            if(is_array($users) && count($users) > 0) {
-              foreach ($users as $user) {
+            if(is_array($books) && count($books) > 0) {
+              foreach ($books as $book) {
                   $class = "";
-                  if ($user->isAdmin()) {
-                    $class = "table-danger";
+                  if (isset($_SESSION['user']) && $book->isMine($_SESSION['user'])) {
+                    $class = "table-primary";
                   }
                 ?>
                   <tr <?php echo "class = " . $class; ?>>
-                    <td><?php echo $user->getID() ?></td>
-                    <td><?php echo $user->getUsername() ?></td>
-                    <td><?php echo $user->getEmail() ?></td>
+                    <td><?php echo $book->getID() ?></td>
+                    <td><?php echo $book->getAuthor() ?></td>
+                    <td><?php echo $book->getTitle() ?></td>
+                    <td><?php echo $book->getOwnerID() ?></td>
+                    <td><?php echo $book->getPrice() ?></td>
                     <td>
-                      <!-- show edit only if user is admin ... -->
-                      <?php if (isset($_SESSION['user']) && $_SESSION['user']->isAdmin()){ ?>
-                        <a href="?controller=user&action=edit&id=<?php echo $user->getID() ?>">edit</a>
+                      <!-- show edit only if user owner or is admin ... -->
+                      <?php if (isset($_SESSION['user']) && ($book->isMine($_SESSION['user']) || $_SESSION['user']->isAdmin())){ ?>
+                        <a href="?controller=book&action=edit&id=<?php echo $book->getID() ?>">edit</a>
                       <?php } ?>
                     </td>
                     <td>
-                      <!-- show edit only if user is admin ... -->
-                      <?php if (isset($_SESSION['user']) && $_SESSION['user']->isAdmin()){ ?>
-                        <a href="javascript:deleteUser('<?php echo $user->getID() ?>')">delete</a>
+                      <!-- show edit only if user is owner or is admin ... -->
+                      <?php if (isset($_SESSION['user']) && ($book->isMine($_SESSION['user']) || $_SESSION['user']->isAdmin())){ ?>
+                        <a href="javascript:deleteUser('<?php echo $book->getID() ?>')">delete
                       <?php } ?>
                     </td>
                   </tr>
@@ -66,9 +70,9 @@
             }
           ?>
           </table>
-          <?php if (isset($_SESSION['user']) && $_SESSION['user']->isAdmin()){ ?>
+          <?php if (isset($_SESSION['user'])){ ?>
           <div class="float-right">
-                <a class="btn btn-primary" href="?controller=user&action=create" role="button">Add User</a>
+                <a class="btn btn-primary" href="?controller=book&action=create" role="button">Add Book</a>
           </div>
           <?php
             }

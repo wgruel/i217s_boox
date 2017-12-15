@@ -1,15 +1,15 @@
 <?php
-  if (!is_object($user)){
+  if (!is_object($book)){
     die("missing user-object");
   }
   if (empty($action)){
     $action = "save";
-    $actionText = "Update User";
+    $actionText = "Update Book";
   }
 ?>
 <html>
   <head>
-    <title>User Form</title>
+    <title>Book Form</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
   </head>
   <body>
@@ -25,25 +25,23 @@
               echo "</div>";
             }
           ?>
-          <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>?action=<?php echo $action ?>">
+          <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>?controller=book&action=<?php echo $action ?>">
             <div class="form-group">
-              <label for="usr">User-Name:</label>
-              <input type="text" class="form-control" id="username" name="username" value="<?php echo $user->getUsername(); ?>">
-            </div>
-            <div class="form-group">
-              <label for="password">Password:</label>
-              <input type="text" class="form-control" id="password" name="password" value="<?php echo $user->getPassword(); ?>">
+              <label for="author">Author:</label>
+              <input type="text" class="form-control" id="author" name="author" value="<?php echo $book->getAuthor(); ?>">
             </div>
             <div class="form-group">
-              <label for="email">E-Mail:</label>
-              <input type="text" class="form-control" id="email" name="email" value="<?php echo $user->getEmail(); ?>">
-              <input type="hidden" id="id" name="id" value="<?php echo $user->getID(); ?>">
+              <label for="password">Title:</label>
+              <input type="text" class="form-control" id="title" name="title" value="<?php echo $book->getTitle(); ?>">
             </div>
-            <div class="checkbox">
-              <label><input type="checkbox" id="admin" name="admin" value="1" <?php if ($user->isAdmin()){ echo "checked"; }; ?>> Admin</label>
+            <div class="form-group">
+              <label for="email">Price:</label>
+              <input type="text" class="form-control" id="price" name="price" value="<?php echo $book->getPrice(); ?>">
+              <input type="hidden" id="id" name="id" value="<?php echo $book->getID(); ?>">
             </div>
+
             <div class="float-right">
-              <a class="btn btn-default" href="index.php" role="button">Cancel</a>
+              <a class="btn btn-default" href="?controller=book&action=index" role="button">Cancel</a>
 
               <button type="submit" class="btn btn-primary" name="btn-save"><?php echo $actionText ?></button>
             </div>

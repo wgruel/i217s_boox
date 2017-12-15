@@ -3,7 +3,7 @@
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="?controller=user&action=index">Books</a>
+        <a class="nav-link" href="?controller=book&action=index">Books</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="?controller=user&action=index">Users</a>

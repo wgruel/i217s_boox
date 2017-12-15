@@ -20,6 +20,9 @@ if (isset($_GET['action'])){
 $filename = 'controllers/' . $controller . '.php';
 if (is_file($filename)) {
     require $filename;
+    /**
+      User related stuff...
+    */
     if ($controller == "user"){
       $uController = new UserController();
       if ($action == "index"){
@@ -75,7 +78,54 @@ if (is_file($filename)) {
         $uController->logoutAction();
       }
       else {
-        die("no valid action provided");
+        die("no valid action for user provided");
+      }
+    }
+    /**
+      All book related stuff...
+    */
+    if ($controller == "book"){
+      $bController = new BookController();
+      if ($action == "index"){
+        $bController->indexAction();
+      }
+      else if ($action == "create"){
+        $bController->createAction();
+      }
+      else if ($action == "new"){
+        if(isset($_POST['btn-save']) && isset($_POST['id'])){
+          $bController->newAction($_POST);
+        }
+        else {
+          die("Can't save as ID is missing or button was not pressed");
+        }
+      }
+      else if ($action == "edit"){
+        if(isset($_GET['id'])){
+          $bController->editAction($_GET['id']);
+        }
+        else {
+          die("No ID provided");
+        }
+      }
+      else if ($action == "save"){
+        if(isset($_POST['btn-save']) && isset($_POST['id'])){
+          $bController->saveAction($_POST);
+        }
+        else {
+          die("Can't save as ID is missing or button was not pressed");
+        }
+      }
+      else if ($action == "delete"){
+        if(isset($_GET['id'])){
+          $bController->deleteAction($_GET['id']);
+        }
+        else {
+          die("No ID provided");
+        }
+      }
+      else {
+        die("no valid action for books provided");
       }
     }
 }
