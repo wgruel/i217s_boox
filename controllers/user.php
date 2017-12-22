@@ -45,6 +45,16 @@
     }
 
     /**
+      get a single user and show the details...
+    */
+    public function detailAction($id) {
+      // get user with ID $id
+      $user = User::getUser($id);
+      // now, we call the detail view.
+      require_once('views/userDetails.php');
+    }
+
+    /**
       provide form to edit user...
     */
     public function editAction($id){
@@ -78,7 +88,7 @@
       // update the user
       // the variable $updateStatus is an array that contains
       // status information about the DB update
-      $updateStatus = $this->user->update($postarray['id'], $postarray['username'], $postarray['password'], $admin, $postarray['email']);
+      $updateStatus = $this->user->update($postarray['id'], $postarray['username'], $postarray['password'], $admin, $postarray['email'], $postarray['address']);
       // and read the user again - so we can show the changed user in the view
       $user = User::getUser($postarray['id']);
       // the messge is just the text in field 1 of the status array...
@@ -120,7 +130,7 @@
       // we create a new user in the database...
       // the variable $createStatus is an array that contains
       // status information about the DB update
-      $createStatus = $this->user->create($postarray['username'], $postarray['password'], $admin, $postarray['email']);
+      $createStatus = $this->user->create($postarray['username'], $postarray['password'], $admin, $postarray['email'], $postarray['address']);
       // If successfull insert
       $message = $createStatus[1];
       // creating the user was successful. We get the user

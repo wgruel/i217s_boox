@@ -65,6 +65,12 @@ if (is_file($filename)) {
         $uController->indexAction();
       }
 
+      else if ($action == "detail"){
+        // call uController's createAction method: This method only
+        // shows a form to enter the user data...
+        $uController->detailAction($_GET['id']);
+      }
+
       // The action is "create". Creating a user is a two step approach:
       // 1) display a form that allows the user to enter the user data
       // 2) store that data in the DB (create statement - no ID required).
@@ -168,7 +174,7 @@ if (is_file($filename)) {
     }
     /**
       All book related stuff
-      -- works basically in the same way as the user-actions... 
+      -- works basically in the same way as the user-actions...
     */
     if ($controller == "book"){
       $bController = new BookController();

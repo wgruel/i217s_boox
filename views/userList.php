@@ -43,7 +43,7 @@
                 ?>
                   <tr <?php echo "class = " . $class; ?>>
                     <td><?php echo $user->getID() ?></td>
-                    <td><?php echo $user->getUsername() ?></td>
+                    <td><a href="?controller=user&action=detail&id=<?php echo $user->getID() ?>" ><?php echo $user->getUsername() ?></a></td>
                     <td><?php echo $user->getEmail() ?></td>
                     <td>
                       <!-- show edit only if user is admin ... -->

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 16, 2017 at 09:56 PM
+-- Generation Time: Dec 22, 2017 at 06:58 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.1
 
@@ -69,10 +69,10 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `username`, `password`, `admin`, `email`, `address`, `lat`, `lng`) VALUES
 (1, 'wgruel', '123456', 0, 'gruel@gruel.com', 'Nobelstr. 11, Stuttgart', '48.7402065', '9.102013'),
-(4, 'anotherone', '123123123', 0, 'email@mail.com', '', '', ''),
+(4, 'anotherone', '123123123', 1, 'email@mail.com', 'Central Park, New York', '40.7828647', '-73.9653551'),
 (7, 'superuser', '123123', 1, 'super@user.com', '', '', ''),
-(12, 'testuser', '1234123', 0, 'test@test.com', '', '', ''),
-(31, 'koko', 'kokoko', 0, 'ko@koko.com', '', '', '');
+(31, 'koko', 'kokoko', 0, 'gruel@hdm-stuttgart.de', 'Nobelstr. 10, stuttgart', '48.7412561', '9.1008994'),
+(32, 'bookworm', '123123', 0, 'bookwork@htm-stuttgart.de', 'Nobelstr. 12, 70569 Stuttgart', '48.7415146', '9.0970269');
 
 --
 -- Indexes for dumped tables
@@ -103,7 +103,7 @@ ALTER TABLE `books`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

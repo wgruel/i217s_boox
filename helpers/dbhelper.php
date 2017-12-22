@@ -18,7 +18,7 @@ class DBHelper {
   public function query($sql){
     $result = mysqli_query($this->conn, $sql);
     if (! $result) {
-        die(mysql_errror());
+        // die(mysqli_errror());
     }
     return $result;
   }

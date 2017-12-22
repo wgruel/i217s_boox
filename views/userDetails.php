@@ -25,40 +25,26 @@
       <div class="container">
           <div class="col-md-12">
 
-          <h1><?php echo $actionText ?></h1>
-          <?php
-            if (isset($message) && $message != ""){
-              echo "<div class='alert alert-info'>";
-              echo $message;
-              echo "</div>";
-            }
-          ?>
-          <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>?action=<?php echo $action ?>">
-            <div class="form-group">
-              <label for="usr">User-Name:</label>
-              <input type="text" class="form-control" id="username" name="username" value="<?php echo $user->getUsername(); ?>">
-            </div>
-            <div class="form-group">
-              <label for="password">Password:</label>
-              <input type="text" class="form-control" id="password" name="password" value="<?php echo $user->getPassword(); ?>">
-            </div>
-            <div class="form-group">
-              <label for="email">E-Mail:</label>
-              <input type="text" class="form-control" id="email" name="email" value="<?php echo $user->getEmail(); ?>">
-              <input type="hidden" id="id" name="id" value="<?php echo $user->getID(); ?>">
-            </div>
-            <div class="form-group">
-              <label for="address">Adresse:</label>
-              <input type="text" class="form-control" id="address" name="address" value="<?php echo $user->getAddress(); ?>">
-            </div>
-            <div class="checkbox">
-              <label><input type="checkbox" id="admin" name="admin" value="1" <?php if ($user->isAdmin()){ echo "checked"; }; ?>> Admin</label>
-            </div>
-            <div class="float-right">
-              <a class="btn btn-default" href="index.php" role="button">Cancel</a>
+          <h1>Details about: <?php echo $user->getUsername(); ?></h1>
 
-              <button type="submit" class="btn btn-primary" name="btn-save"><?php echo $actionText ?></button>
+            <div class="form-group">
+              User-Name: <?php echo $user->getUsername(); ?>
             </div>
+            <div class="form-group">
+              E-Mail: <?php echo $user->getEmail(); ?>
+            </div>
+            <div class="form-group">
+              Adresse:
+                <?php
+                if ($user->getAddress() != "") {
+                   echo $user->getAddress();
+                 }
+                 else {
+                    echo "not available";
+                  };
+                ?>
+            </div>
+
             <?php
             // show map only if lattitude and longitude are set...
             if ($user->getLat() && $user->getLng()){
@@ -84,7 +70,6 @@
               </script>
             <?php } ?>
 
-          </form>
 
         </div>
 
