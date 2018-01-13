@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 22, 2017 at 06:58 PM
+-- Generation Time: Jan 13, 2018 at 07:35 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.1
 
@@ -31,20 +31,20 @@ CREATE TABLE `books` (
   `owner_id` int(11) NOT NULL,
   `author` varchar(255) NOT NULL,
   `title` varchar(255) NOT NULL,
-  `price` decimal(10,2) NOT NULL
+  `price` decimal(10,2) NOT NULL,
+  `isbn` bigint(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `books`
 --
 
-INSERT INTO `books` (`id`, `owner_id`, `author`, `title`, `price`) VALUES
-(1, 7, 'Kai Ahnung', 'Ich weiss nichts...', '0.01'),
-(2, 1, 'Douglas Adams', 'Hitchhikers Guide to the Galaxy', '12.00'),
-(5, 1, 'Jan Boehmermann', 'Erdogan', '100.00'),
-(16, 1, 'Rosamunde Pilcher', 'Mord am See', '1.00'),
-(20, 7, 'Jamie Oliver', 'My Recipies', '19.99'),
-(21, 1, 'Karl Marx', 'Das Kapitel', '29.00');
+INSERT INTO `books` (`id`, `owner_id`, `author`, `title`, `price`, `isbn`) VALUES
+(1, 1, 'Jon Duckett', 'JavaScript and JQuery', '39.00', 9781118531648),
+(2, 1, ' Randy Connolly', 'Fundamentals of Web Development', '141.36', 9780134481265),
+(3, 1, 'Oral Avci', 'Web-Programmierung: Softwareentwicklung mit Internet-Technologien', '69.99', 9783528058579),
+(4, 1, 'Anthony T. Holdener III', 'Ajax: The Definitive Guide', '34.99', 0),
+(5, 1, 'Chris Aquino', 'Front-End Web Development', '37.09', 123);
 
 -- --------------------------------------------------------
 
@@ -98,7 +98,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `user`
 --

@@ -31,9 +31,14 @@
               <input type="text" class="form-control" id="author" name="author" value="<?php echo $book->getAuthor(); ?>">
             </div>
             <div class="form-group">
-              <label for="password">Title:</label>
+              <label for="title">Title:</label>
               <input type="text" class="form-control" id="title" name="title" value="<?php echo $book->getTitle(); ?>">
             </div>
+            <div class="form-group">
+              <label for="isbn">ISBN:</label>
+              <input type="text" class="form-control" id="isbn" name="isbn" value="<?php echo $book->getISBN(); ?>">
+            </div>
+
             <div class="form-group">
               <label for="email">Price:</label>
               <input type="text" class="form-control" id="price" name="price" value="<?php echo $book->getPrice(); ?>">

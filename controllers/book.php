@@ -52,7 +52,7 @@
       save a book that has been edited
     */
     public function saveAction($postarray){
-      $updateStatus = $this->book->update($postarray['id'], $postarray['author'], $postarray['title'], $_SESSION['user']->getID(), $postarray['price']);
+      $updateStatus = $this->book->update($postarray['id'], $postarray['author'], $postarray['title'], $_SESSION['user']->getID(), $postarray['price'], $postarray['isbn']);
       $book = $this->book->getBook($postarray['id']);
       $message = $updateStatus[1];
       require_once('views/bookForm.php');
@@ -73,7 +73,7 @@
       save a book that has just been entered
     */
     public function newAction($postarray){
-      $createStatus = $this->book->create($postarray['author'], $postarray['title'], $_SESSION['user']->getID(), $postarray['price']);
+      $createStatus = $this->book->create($postarray['author'], $postarray['title'], $_SESSION['user']->getID(), $postarray['price'], $postarray['isbn']);
       // If successfull insert
       $message = $createStatus[1];
       if ($createStatus[0]){

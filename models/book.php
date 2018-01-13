@@ -7,24 +7,26 @@ class Book {
   private $author;
   private $ownerID;
   private $price;
+  private $isbn;
   protected static $db;
 
   public function __construct(){
     self::$db = new DBHelper();
   }
 
-  public function setBook($id, $author, $title, $ownerID, $price){
+  public function setBook($id, $author, $title, $ownerID, $price, $isbn){
     $this->id = $id;
     $this->title = $title;
     $this->author = $author;
     $this->ownerID = $ownerID;
     $this->price = $price;
+    $this->isbn = $isbn;
   }
 
 
-  public function create($author, $title, $ownerID, $price){
-    $sql_query = "INSERT INTO `books`(`owner_id`, `author`, `title`, `price`) ";
-    $sql_query .= "VALUES('" . $ownerID ."','" . $author . "','" . $title . "','" . $price . "')";
+  public function create($author, $title, $ownerID, $price, $isbn){
+    $sql_query = "INSERT INTO `books`(`owner_id`, `author`, `title`, `price`, `isbn`) ";
+    $sql_query .= "VALUES('" . $ownerID ."','" . $author . "','" . $title . "','" . $price . "', '" . $isbn . "')";
     // run query
     $result = self::$db->query($sql_query);
     $errorText = mysqli_error(self::$db->conn);
@@ -43,11 +45,12 @@ class Book {
     return $returnArray;
   }
 
-  public function update($id, $author, $title, $ownerID, $price){
+  public function update($id, $author, $title, $ownerID, $price, $isbn){
     $sql_query = "UPDATE `books` SET `title` = '" . $title . "',
       `author` = '" . $author . "',
       `owner_id` = '" . $ownerID . "',
-      `price` = '" . $price . "'
+      `price` = '" . $price . "',
+      `isbn` = '" . $isbn . "'
       WHERE `id` = " . $id;
     // run query
     $result = self::$db->query($sql_query);
@@ -85,7 +88,7 @@ class Book {
     $sql_query = "SELECT * FROM `books` WHERE `id` = " . $id;
     $result = self::$db->query($sql_query);
     $row = mysqli_fetch_array($result);
-    $book->setBook($row['id'], $row['author'], $row['title'], $row['owner_id'], $row['price']);
+    $book->setBook($row['id'], $row['author'], $row['title'], $row['owner_id'], $row['price'], $row['isbn']);
     return $book;
   }
 
@@ -97,7 +100,7 @@ class Book {
     if(mysqli_num_rows($result_set) > 0) {
       while($row = mysqli_fetch_array($result_set)) {
         $book = new Book();
-        $book->setBook($row['id'], $row['author'], $row['title'], $row['owner_id'], $row['price']);
+        $book->setBook($row['id'], $row['author'], $row['title'], $row['owner_id'], $row['price'], $row['isbn']);
         $books[] = $book;
       }
     }
@@ -120,6 +123,10 @@ class Book {
   public function getPrice(){
     return $this->price;
   }
+  public function getISBN(){
+    return $this->isbn;
+  }
+
   public function isMine($user){
     if ($user->getID() == $this->ownerID){
       return true;
