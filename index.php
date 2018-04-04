@@ -3,6 +3,8 @@
 require_once('helpers/dbhelper.php');
 require_once('models/user.php');
 
+echo "hallo";
+
 // in order to store variables across multiple websites, we start a session
 session_start();
 
